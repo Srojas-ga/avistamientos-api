@@ -13,7 +13,7 @@ Hecha con **Python 3 + Flask + SQLite** (la base de datos es el archivo `avistam
 ```bash
 # 1. Clonar el repositorio
 git clone https://github.com/Srojas-ga/avistamientos-api
-cd <NOMBRE-DE-LA-CARPETA>
+cd avistamientos-api
 
 # 2. Crear y activar el entorno virtual
 python -m venv venv
