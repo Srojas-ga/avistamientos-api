@@ -1,0 +1,110 @@
+### Crear avistamiento
+POST http://127.0.0.1:5000/avistamientos
+Content-Type: application/json
+
+{
+  "especie": "colibri",
+  "lugar": "Parque Simon Bolivar",
+  "fecha": "2026-10-12",
+  "observador": "Ana"
+}
+
+### Crear incompleto 
+POST http://127.0.0.1:5000/avistamientos
+Content-Type: application/json
+
+{
+  "especie": "colibri"
+}
+
+### Listar
+GET http://127.0.0.1:5000/avistamientos
+
+### Ver uno 
+GET http://127.0.0.1:5000/avistamientos/1
+
+### Ver uno que no existe
+GET http://127.0.0.1:5000/avistamientos/999
+
+### Actualizar 
+PUT http://127.0.0.1:5000/avistamientos/1
+Content-Type: application/json
+
+{
+  "especie": "colibri",
+  "lugar": "Jardin Botanico",
+  "fecha": "2026-10-13",
+  "observador": "Ana"
+}
+
+### Actualizar incompleto 
+PUT http://127.0.0.1:5000/avistamientos/1
+Content-Type: application/json
+
+{
+  "especie": "colibri"
+}
+
+### Actualizar uno que no existe 
+PUT http://127.0.0.1:5000/avistamientos/999
+Content-Type: application/json
+
+{
+  "especie": "colibri",
+  "lugar": "Jardin Botanico",
+  "fecha": "2026-10-13",
+  "observador": "Ana"
+}
+
+### Eliminar 
+DELETE http://127.0.0.1:5000/avistamientos/1
+
+### Eliminar otra vez 
+DELETE http://127.0.0.1:5000/avistamientos/1
+
+### Crear otro colibri
+POST http://127.0.0.1:5000/avistamientos
+Content-Type: application/json
+
+{
+  "especie": "colibri",
+  "lugar": "Jardin Botanico",
+  "fecha": "2026-10-14",
+  "observador": "Luis"
+}
+
+### Crear un condor
+POST http://127.0.0.1:5000/avistamientos
+Content-Type: application/json
+
+{
+  "especie": "condor",
+  "lugar": "Paramo de Sumapaz",
+  "fecha": "2026-10-15",
+  "observador": "Ana"
+}
+
+### Resumen por especie
+GET http://127.0.0.1:5000/avistamientos/resumen
+
+### Crear con mayuscula 
+POST http://127.0.0.1:5000/avistamientos
+Content-Type: application/json
+
+{
+  "especie": "Colibri",
+  "lugar": "Jardin Botanico",
+  "fecha": "2026-10-16",
+  "observador": "Luis"
+}
+
+### Fecha con mal formato
+POST http://127.0.0.1:5000/avistamientos
+Content-Type: application/json
+
+{
+  "especie": "colibri",
+  "lugar": "Jardin Botanico",
+  "fecha": "12-10-2026",
+  "observador": "Luis"
+}
