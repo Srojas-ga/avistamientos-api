@@ -113,7 +113,7 @@ Son 14 pruebas (endpoints, códigos de estado, validación de fecha y normalizac
 
 ## Uso de IA
 
-Se usó **Claude (Anthropic), modelo Claude Sonnet 5.5**, como ayuda para Crear lo que fue el archivo de pruebas, para ayudar con la identificacion de tildes, mayusculas y minusculas y espacios en el apartado de la creacio de avistamiento y su especie, tambien aconsejo como probar con peticiones y no creando una vista compleja y tambien el uso de un archivo JSON para crear datos para la Base de Datos>
+Se usó **Claude (Anthropic), modelo Claude Sonnet 5.5**, como ayuda para Crear el archivo de pruebas, para ayudar con la identificacion de tildes, mayusculas y minusculas y espacios en el apartado de la creacio de avistamiento y su especie, tambien aconsejo como probar con peticiones y no creando una vista compleja y tambien el uso de un archivo JSON para crear datos para la Base de Datos, tambien para verificacion de que los metodos creados estuvieran bien hechos y tambien agregar los cambios ya mencionados en cuanto a la espcie>
 
 ## Limitaciones conocidas
 
