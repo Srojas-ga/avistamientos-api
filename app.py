@@ -1,30 +1,36 @@
 import sqlite3
 import unicodedata
+from contextlib import closing
+from validador import ValidadorDeAvistamiento
 from flask import Flask, jsonify, request
 from datetime import datetime
 
 app = Flask(__name__)
 DB = "avistamientos.db"
 CAMPOS = ["especie", "lugar", "fecha", "observador"]
+validador = ValidadorDeAvistamiento()
+
+class Conexion:
+    """Abre SQLite, guarda los cambios al salir del with y siempre cierra la conexión."""
+
+    def __enter__(self):
+        self.conn = sqlite3.connect(DB)
+        self.conn.row_factory = sqlite3.Row
+        return self.conn
+
+    def __exit__(self, tipo, valor, traza):
+        try:
+            if tipo is None:
+                self.conn.commit()
+            else:
+                self.conn.rollback()
+        finally:
+            self.conn.close()
+
 
 def get_conn():
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
-    return conn
+    return Conexion()
 
-def datos_validos(datos):
-    return (
-        bool(datos)
-        and all(isinstance(datos.get(c), str) and datos[c].strip() for c in CAMPOS)
-        and fecha_valida(datos["fecha"])
-    )
-
-def fecha_valida(texto):
-    try:
-        datetime.strptime(texto, "%Y-%m-%d")
-    except ValueError:
-        return False
-    return len(texto) == 10
 
 def clave_especie(texto):
     """Clave de comparación: sin tildes, minúsculas y espacios simples."""
@@ -65,8 +71,9 @@ def listar():
 @app.post("/avistamientos")
 def crear():
     datos = request.get_json(silent=True)
-    if not datos_validos(datos):
-     return jsonify({"error": "Se requieren: especie, lugar, fecha (AAAA-MM-DD) y observador"}), 400
+    errores = validador.validar(datos)
+    if errores:
+        return jsonify({"error": errores}), 400
     with get_conn() as conn:
         especie = especie_canonica(conn, datos["especie"])
         cur = conn.execute(
@@ -99,8 +106,9 @@ def resumen():
 @app.put("/avistamientos/<int:id>")
 def actualizar(id):
     datos = request.get_json(silent=True)
-    if not datos_validos(datos):
-     return jsonify({"error": "Se requieren: especie, lugar, fecha (AAAA-MM-DD) y observador"}), 400
+    errores = validador.validar(datos)
+    if errores:
+        return jsonify({"error": errores}), 400
     with get_conn() as conn:
         especie = especie_canonica(conn, datos["especie"])
         cur = conn.execute(

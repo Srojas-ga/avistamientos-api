@@ -108,3 +108,14 @@ Content-Type: application/json
   "fecha": "12-10-2026",
   "observador": "Luis"
 }
+
+### Especie corta y fecha futura (debe dar 400 con mensajes por campo)
+POST http://127.0.0.1:5000/avistamientos
+Content-Type: application/json
+
+{
+  "especie": "ab",
+  "lugar": "Jardin Botanico",
+  "fecha": "2099-01-01",
+  "observador": "Luis"
+}
